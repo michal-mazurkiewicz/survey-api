@@ -12,6 +12,9 @@ The api is composed of the following endpoints:
 App implements request body validation for creating surveys and submiting the answers.
 The data is persistent thanks to our sophisticated json file database.
 
+The interface of the repository module is design in the way,
+that should allow easily to substitute it with real database eg. postgress.
+
 Application has complete 100% test coverage.
 
 **Running App locally**
