@@ -2,7 +2,7 @@ require('./test-config')
 const request = require('supertest')
 const app = require('../src/app')
 const fs = require('fs/promises')
-const repository = require('../src/repository/repository')
+const repository = require('../src/repository/file-repository')
 
 describe('Test the survey path', () => {
 	test('get should response with survey list', async () => {
@@ -104,8 +104,6 @@ describe('Test the survey path', () => {
 		expect(response.statusCode).toBe(200)
 		expect(JSON.parse(response.text).message).toEqual('Success')
 		expect(fs.writeFile).toHaveBeenCalledTimes(1)
-		let after = await (await repository.selectAll()).surveys
-		expect(after.length).toEqual(2)
 	})
 
 	test('It should response with 404', async () => {
