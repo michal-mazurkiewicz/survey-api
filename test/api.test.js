@@ -62,7 +62,7 @@ describe('Test the survey path', () => {
 	test('should return ok response when correct request', async () => {
 		const response = await request(app)
 			.put('/api/survey/0')
-			.send({ answerId: 1 })
+			.send({ answerId: 0 })
 		expect(response.statusCode).toBe(200)
 		expect(JSON.parse(response.text).message).toEqual('Success')
 		expect(fs.writeFile).toHaveBeenCalledTimes(1)
@@ -96,7 +96,7 @@ describe('Test the survey path', () => {
 	})
 
 	test('should return 200 when correct body', async () => {
-		let {surveys} = await repository.get()
+		let {surveys} = await repository.selectAll()
 		expect(surveys.length).toEqual(1)
 		const response = await request(app)
 			.post('/api/survey')
@@ -104,7 +104,7 @@ describe('Test the survey path', () => {
 		expect(response.statusCode).toBe(200)
 		expect(JSON.parse(response.text).message).toEqual('Success')
 		expect(fs.writeFile).toHaveBeenCalledTimes(1)
-		let after = await (await repository.get()).surveys
+		let after = await (await repository.selectAll()).surveys
 		expect(after.length).toEqual(2)
 	})
 
